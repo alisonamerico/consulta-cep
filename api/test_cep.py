@@ -33,13 +33,10 @@ def mocked_responses():
             "https://viacep.com.br/ws/50870480/json/",
             json=dados_do_endereco,
         )
+        resp = requests.get("https://viacep.com.br/ws/50870480/json/")
+        assert resp.status_code == HTTPStatus.OK
+
         yield rsps
-
-
-def test_api_status_code(mocked_responses) -> None:
-    """assert resp.status_code -> HTTPStatus.OK"""
-    resp = requests.get("https://viacep.com.br/ws/50870480/json/")
-    assert resp.status_code == HTTPStatus.OK
 
 
 def test_cep(mocked_responses) -> None:
