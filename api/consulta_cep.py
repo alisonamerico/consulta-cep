@@ -18,15 +18,21 @@ def consultaCEP(cep: int) -> Response:
     return dados_do_endereco
 
 
-# if __name__ == "__main__":
-#     cep = int(input("Informe um CEP para consulta: "))
-
-#     if len(str(cep).strip()) != 8:
-#         print(f"{cep} inválido!")
-#         print()
-#         print("Dicas: ")
-#         print("1. Certifique-se que CEP possua 8 dígitos.")
-#         print("2. Sem letras ou caracteres especiais.")
-#         exit()
-#     else:
-#         print(f"{consulta_cep(cep)}")
+if __name__ == "__main__":
+    print()
+    cep = int(input("Informe um CEP para consulta: "))
+    print()
+    if len(str(cep).strip()) != 8:
+        print(f"{cep} inválido!")
+        print()
+        print("Dicas: ")
+        print("1. Certifique-se que CEP possua 8 dígitos.")
+        print("2. Sem letras ou caracteres especiais.")
+        exit()
+    else:
+        print(f"CEP: {consultaCEP(cep)['cep']}")
+        print(f"Logradouro: {consultaCEP(cep)['logradouro']}")
+        print(f"Complemento: {consultaCEP(cep)['complemento']}")
+        print(f"Bairro: {consultaCEP(cep)['bairro']}")
+        print(f"Localidade: {consultaCEP(cep)['localidade']}")
+        print(f"UF: {consultaCEP(cep)['uf']}")
