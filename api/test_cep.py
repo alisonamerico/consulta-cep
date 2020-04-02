@@ -37,11 +37,11 @@ def test_api_status_code(mocked_responses) -> None:
 
 
 def test_cep(mocked_responses) -> None:
-    consultaCEP(50870480)["cep"] == "50870-480"
+    assert consultaCEP(50870480)["cep"] == "50870-480"
 
 
 def test_logradouro(mocked_responses) -> None:
-    consultaCEP(50870480)["logradouro"] == "Rua Jataúba"
+    assert consultaCEP(50870480)["logradouro"] == "Rua Jataúba"
 
 
 def test_bairro(mocked_responses) -> None:
