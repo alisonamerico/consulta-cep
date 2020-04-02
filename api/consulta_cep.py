@@ -5,6 +5,14 @@ from requests import Response
 
 
 def consultaCEP(cep: int) -> Response:
+    """Função que busca dados de um CEP informado.
+    
+    Arguments:
+        cep {int} -- CEP informado.
+    
+    Returns:
+        Response -- Retorna o dados do CEp.
+    """
     consulta = requests.get(f"https://viacep.com.br/ws/{cep}/json/")
     dados_do_endereco = consulta.json()
     return dados_do_endereco
