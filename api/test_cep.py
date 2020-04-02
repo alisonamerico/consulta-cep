@@ -55,10 +55,10 @@ def test_bairro(mocked_responses) -> None:
 
 
 def test_cidade(mocked_responses) -> None:
-    """assert consultaCEP(50870480)["localidade"] == "Recife" """
+    """assert consultaCEP(50870480)["localidade"] -> "Recife" """
     assert consultaCEP(50870480)["localidade"] == "Recife"
 
 
 def test_uf(mocked_responses) -> None:
-    """assert consultaCEP(50870480)["uf"] == "PE" """
+    """assert consultaCEP(50870480)["uf"] -> "PE" """
     assert consultaCEP(50870480)["uf"] == "PE"
