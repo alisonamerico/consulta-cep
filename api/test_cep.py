@@ -22,6 +22,11 @@ dados_do_endereco = {
 
 @pytest.fixture
 def mocked_responses():
+    """Função que irá simular(mokar) o retorno do requests.
+    
+    Yields:
+        [type] -- Retorna dados simulados pelo responses.
+    """
     with responses.RequestsMock() as rsps:
         rsps.add(
             responses.GET,
