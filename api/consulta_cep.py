@@ -4,7 +4,7 @@ import requests
 from requests import Response
 
 
-def consulta_cep(cep: int) -> Response:
+def consultaCEP(cep: int) -> Response:
     consulta = requests.get(f"https://viacep.com.br/ws/{cep}/json/")
     dados_do_endereco = consulta.json()
     return dados_do_endereco
