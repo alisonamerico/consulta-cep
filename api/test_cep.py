@@ -31,14 +31,18 @@ def test_uf(mocked_responses) -> None:
     assert consultaCEP(50870480)["uf"] == "PE"
 
 
-def test_verifica_cep_formato_valido_porem_inexistente() -> None:
+def test_verifica_cep_formato_valido_porem_inexistente(
+    mocked_responses_cep_formato_valido_porem_inexistente,
+) -> None:
     cep = 12345678
     valor_esperado = f"""{cep} possui um formato válido, porém inexistente!
                         Certifique-se que CEP que existe."""
     assert consultaCEP(cep) == valor_esperado
 
 
-def test_verifica_cep_formato_invalido() -> None:
+def test_verifica_cep_formato_invalido(
+    mocked_responses_verifica_cep_formato_invalido,
+) -> None:
     cep = 3456
     valor_esperado = f"""
         Valor digitado possui um formato inválido!

@@ -1,4 +1,3 @@
-from http import HTTPStatus
 import requests
 from requests import Response
 
@@ -58,4 +57,3 @@ if __name__ == "__main__":
                     3. Certifique-se que CEP que existe.
                 """
             )
-            print()
