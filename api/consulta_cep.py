@@ -1,3 +1,4 @@
+from http import HTTPStatus
 import requests
 from requests import Response
 
@@ -9,83 +10,52 @@ def consultaCEP(cep: int) -> Response:
         cep {int} -- CEP informado.
     
     Returns:
-        Response -- Retorna o dados do CEp.
+        Response -- Retorna valores esperados para cada condição.
     """
-    consulta = requests.get(f"https://viacep.com.br/ws/{cep}/json/")
-    dados_do_endereco = consulta.json()
-    return dados_do_endereco
-
-
-def verifica_cep_valor_invalido(cep: int) -> Response:
     try:
-        return f"""
-        CEP: {consultaCEP(cep)['cep']}
-        Logradouro: {consultaCEP(cep)['logradouro']}
-        Complemento: {consultaCEP(cep)['complemento']}
-        Bairro: {consultaCEP(cep)['bairro']}
-        Localidade: {consultaCEP(cep)['localidade']}
-        UF: {consultaCEP(cep)['uf']}
-        """
-
+        consulta = requests.get(f"https://viacep.com.br/ws/{cep}/json/")
+        dados_do_endereco = consulta.json()
+        if not "erro" in dados_do_endereco:
+            return dados_do_endereco
+        else:
+            return f"""{cep} possui um formato válido, porém inexistente!
+                        Certifique-se que CEP que existe."""
     except ValueError:
         return f"""
-        {cep} valor inválido!
-        Dicas: 
+        Valor digitado possui um formato inválido!
+        Dicas:
         1. Certifique-se que CEP possua 8 dígitos.
         2. Sem letras ou caracteres especiais.
         3. Certifique-se que CEP que existe.
-        """
-
-
-def verifica_cep_chave_invalida(cep: int) -> Response:
-    try:
-        return f"""
-        CEP: {consultaCEP(cep)['cep']}
-        Logradouro: {consultaCEP(cep)['logradouro']}
-        Complemento: {consultaCEP(cep)['complemento']}
-        Bairro: {consultaCEP(cep)['bairro']}
-        Localidade: {consultaCEP(cep)['localidade']}
-        UF: {consultaCEP(cep)['uf']}
-        """
-
-    except KeyError:
-        return f"""
-        {cep} chave inválida!
-        Dicas: 
-        1. Certifique-se que CEP possua 8 dígitos.
-        2. Sem letras ou caracteres especiais.
-        3. Certifique-se que CEP que existe.
-        """
+    """
 
 
 if __name__ == "__main__":
 
-    print()
-    input_cep = input("Informe um CEP para consulta: ")
-    print()
-    try:
-        cep = int(input_cep)
-        print(f"CEP: {consultaCEP(cep)['cep']}")
-        print(f"Logradouro: {consultaCEP(cep)['logradouro']}")
-        print(f"Complemento: {consultaCEP(cep)['complemento']}")
-        print(f"Bairro: {consultaCEP(cep)['bairro']}")
-        print(f"Localidade: {consultaCEP(cep)['localidade']}")
-        print(f"UF: {consultaCEP(cep)['uf']}")
-
-    except ValueError:
-        print(f"{input_cep} inválido!")
-        print()
-        print("Dicas: ")
-        print("1. Certifique-se que CEP possua 8 dígitos.")
-        print("2. Sem letras ou caracteres especiais.")
-        print("3. Certifique-se que CEP que existe.")
-        exit()
-
-    except KeyError:
-        print(f"{input_cep} inválido!")
-        print()
-        print("Dicas: ")
-        print("1. Certifique-se que CEP possua 8 dígitos.")
-        print("2. Sem letras ou caracteres especiais.")
-        print("3. Certifique-se que CEP que existe.")
-        exit()
+    while True:
+        try:
+            print()
+            cep = int(input("Informe um CEP para consulta: "))
+            if not "erro" in consultaCEP(cep):
+                print(consultaCEP(cep))
+                break
+            else:
+                print(
+                    f"""
+                    {cep} possui um formato válido, porém inexistente!
+                    Certifique-se que CEP que existe.
+                    """
+                )
+                print()
+        except ValueError:
+            print()
+            print(
+                f"""
+                    Valor digitado possui um formato inválido!
+                    Dicas:
+                    1. Certifique-se que CEP possua 8 dígitos.
+                    2. Sem letras ou caracteres especiais.
+                    3. Certifique-se que CEP que existe.
+                """
+            )
+            print()

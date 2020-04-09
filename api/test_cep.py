@@ -3,11 +3,7 @@ from http import HTTPStatus
 
 from requests import Response
 
-from api.consulta_cep import (
-    consultaCEP,
-    verifica_cep_valor_invalido,
-    verifica_cep_chave_invalida,
-)
+from api.consulta_cep import consultaCEP
 
 
 def test_cep(mocked_responses) -> None:
@@ -35,32 +31,23 @@ def test_uf(mocked_responses) -> None:
     assert consultaCEP(50870480)["uf"] == "PE"
 
 
-def test_verifica_cep_valor_invalido() -> None:
-    cep = 3456677
-    assert (
-        verifica_cep_valor_invalido(3456677)
-        == f"""
-        {cep} valor inválido!
-        Dicas: 
-        1. Certifique-se que CEP possua 8 dígitos.
-        2. Sem letras ou caracteres especiais.
-        3. Certifique-se que CEP que existe.
-        """
-    )
-
-
-def test_verifica_cep_chave_invalida() -> None:
+def test_verifica_cep_formato_valido_porem_inexistente() -> None:
     cep = 12345678
-    assert (
-        verifica_cep_chave_invalida(12345678)
-        == f"""
-        {cep} chave inválida!
-        Dicas: 
+    valor_esperado = f"""{cep} possui um formato válido, porém inexistente!
+                        Certifique-se que CEP que existe."""
+    assert consultaCEP(cep) == valor_esperado
+
+
+def test_verifica_cep_formato_invalido() -> None:
+    cep = 3456
+    valor_esperado = f"""
+        Valor digitado possui um formato inválido!
+        Dicas:
         1. Certifique-se que CEP possua 8 dígitos.
         2. Sem letras ou caracteres especiais.
         3. Certifique-se que CEP que existe.
-        """
-    )
+    """
+    assert consultaCEP(cep) == valor_esperado
 
 
 """
