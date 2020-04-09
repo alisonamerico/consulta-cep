@@ -19,9 +19,7 @@ dados_do_endereco = {
 
 cep_formato_valido_porem_inexistente = {"erro": True}
 
-# verifica_cep_formato_invalido = json.loads(
-#     b'<!DOCTYPE HTML><html lang="pt-br"><head><title>ViaCEP 400</title><meta charset="utf-8" /><style type="text/css">h1 {color: #666;text-align: center;font-size: 4em;}h2, h3 {color: #777;text-align: center;font-size: 3em;}h3{font-size: 1.5em;}</style></head><body><h1>Erro 400</h1><h2>Ops!</h2><h3>Verifique a sua URL (Bad Request)</h3></body></html>'
-# )
+
 verifica_cep_formato_invalido = f"""
         Valor digitado possui um formato inválido!
         Dicas:
